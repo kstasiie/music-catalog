@@ -1,8 +1,6 @@
 <script setup>
-// Add functionality if needed, e.g., reactive state for the input
 import { ref } from "vue";
 
-const searchQuery = ref("");
 const selectedTab = ref("Track");
 
 function setTab(tab) {
@@ -11,30 +9,47 @@ function setTab(tab) {
 </script>
 
 <template>
-  <div class="music-catalog">
-    <h1>MUSIC catalog</h1>
-    <div class="controls">
-      <button
-        :class="{ active: selectedTab === 'Track' }"
-        @click="setTab('Track')"
-      >
-        Track
-      </button>
-      <button
-        :class="{ active: selectedTab === 'Album' }"
-        @click="setTab('Album')"
-      >
-        Album
-      </button>
-      <button
-        :class="{ active: selectedTab === 'Playlist' }"
-        @click="setTab('Playlist')"
-      >
-        Playlist
-      </button>
-    </div>
-    <input v-model="searchQuery" type="text" placeholder="Song 1" />
-  </div>
+  <v-app>
+    <v-main class="music-catalog">
+      <v-container class="text-center">
+        <h1 class="title">MUSIC catalog</h1>
+        <v-row justify="center" class="controls">
+          <v-btn
+            :color="selectedTab === 'Track' ? 'blue lighten-2' : 'white'"
+            :class="{ 'white--text': selectedTab === 'Track' }"
+            class="mx-2"
+            @click="setTab('Track')"
+          >
+            Track
+          </v-btn>
+          <v-btn
+            :color="selectedTab === 'Album' ? 'blue lighten-2' : 'white'"
+            :class="{ 'white--text': selectedTab === 'Album' }"
+            class="mx-2"
+            @click="setTab('Album')"
+          >
+            Album
+          </v-btn>
+          <v-btn
+            :color="selectedTab === 'Playlist' ? 'blue lighten-2' : 'white'"
+            :class="{ 'white--text': selectedTab === 'Playlist' }"
+            class="mx-2"
+            @click="setTab('Playlist')"
+          >
+            Playlist
+          </v-btn>
+        </v-row>
+        <v-text-field
+          v-model="searchQuery"
+          placeholder="Song 1"
+          solo
+          rounded
+          class="search-input"
+          prepend-inner-icon="mdi-magnify"
+        ></v-text-field>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <style lang="scss" scoped>
@@ -42,49 +57,25 @@ function setTab(tab) {
   background: linear-gradient(to bottom, #87ceeb, #1e90ff);
   height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-family: Arial, sans-serif;
 }
 
-h1 {
+.title {
+  color: white;
   font-size: 4em;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-family: Arial, sans-serif;
 }
 
 .controls {
   margin: 20px 0;
 }
 
-button {
-  padding: 10px 20px;
-  margin: 0 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: white;
-  color: black;
-  transition: background-color 0.3s;
-
-  &.active {
-    background-color: #6495ed;
-    color: white;
-  }
-}
-
-input {
-  padding: 10px;
-  width: 300px;
-  border: none;
-  border-radius: 10px;
-  font-size: 1em;
-  background-color: rgba(255, 255, 255, 0.9);
+.search-input {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.9) !important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-
-  &::placeholder {
-    color: #888;
-  }
 }
 </style>
