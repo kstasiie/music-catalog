@@ -12,41 +12,28 @@ function setTab(tab) {
   <v-app>
     <v-main class="music-catalog">
       <v-container class="text-center">
-        <h1 class="title">MUSIC catalog</h1>
+        <img src="~/assets/images/main-logo.svg" alt="">
         <v-row justify="center" class="controls">
-          <v-btn
-            :color="selectedTab === 'Track' ? 'blue lighten-2' : 'white'"
-            :class="{ 'white--text': selectedTab === 'Track' }"
-            class="mx-2"
-            @click="setTab('Track')"
-          >
+          <v-btn :color="selectedTab === 'Track' ? 'blue lighten-2' : 'white'"
+            :class="{ 'white--text': selectedTab === 'Track' }" class="mx-2" @click="setTab('Track')">
             Track
           </v-btn>
-          <v-btn
-            :color="selectedTab === 'Album' ? 'blue lighten-2' : 'white'"
-            :class="{ 'white--text': selectedTab === 'Album' }"
-            class="mx-2"
-            @click="setTab('Album')"
-          >
+          <v-btn :color="selectedTab === 'Album' ? 'blue lighten-2' : 'white'"
+            :class="{ 'white--text': selectedTab === 'Album' }" class="mx-2" @click="setTab('Album')">
             Album
           </v-btn>
-          <v-btn
-            :color="selectedTab === 'Playlist' ? 'blue lighten-2' : 'white'"
-            :class="{ 'white--text': selectedTab === 'Playlist' }"
-            class="mx-2"
-            @click="setTab('Playlist')"
-          >
+          <v-btn :color="selectedTab === 'Playlist' ? 'blue lighten-2' : 'white'"
+            :class="{ 'white--text': selectedTab === 'Playlist' }" class="mx-2" @click="setTab('Playlist')">
             Playlist
           </v-btn>
         </v-row>
-        <v-text-field
-          v-model="searchQuery"
-          placeholder="Song 1"
-          solo
-          rounded
-          class="search-input"
-          prepend-inner-icon="mdi-magnify"
-        ></v-text-field>
+
+        <v-row class="d-flex justify-center">
+          <v-col cols="12" sm="9" lg="6" xl="4">
+            <v-text-field v-model="searchQuery" placeholder="Song 1" rounded variant="solo" class="search-input"
+              prepend-inner-icon="mdi-magnify"></v-text-field>
+          </v-col>
+        </v-row>
       </v-container>
     </v-main>
   </v-app>
@@ -70,12 +57,5 @@ function setTab(tab) {
 
 .controls {
   margin: 20px 0;
-}
-
-.search-input {
-  max-width: 400px;
-  margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.9) !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 </style>
