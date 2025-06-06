@@ -52,7 +52,7 @@ function setTab(tab) {
 <style lang="scss" scoped>
 .music-catalog {
   background: linear-gradient(to bottom, #87ceeb, #1e90ff);
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   // align-items: center;
   justify-content: center;
