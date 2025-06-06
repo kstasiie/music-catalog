@@ -1,12 +1,22 @@
-<script setup lang="ts"></script>
-<template>
-  <v-card class="mx-auto my-8" elevation="16" max-width="344">
-    <v-card-item>
-      <v-card-title> Track title </v-card-title>
+<script setup lang="ts">
+defineProps<{
+  track: {
+    title: string,
+    year: string,
+    artist_id: string,
+    album_id: string,
+  }
+}>()
 
-      <v-card-subtitle> Artist </v-card-subtitle>
+</script>
+<template>
+  <v-card :elevation="0">
+    <v-card-item>
+      <v-card-title> {{ track.title }} </v-card-title>
+
+      <v-card-subtitle> {{ track.artist_id }} </v-card-subtitle>
     </v-card-item>
 
-    <v-card-text> description </v-card-text>
+    <v-card-text> {{ track.year }} {{ track.album_id }} </v-card-text>
   </v-card>
 </template>

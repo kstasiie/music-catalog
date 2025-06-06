@@ -38,7 +38,7 @@ function setTab(tab) {
         </v-row>
 
         <v-row class="d-flex justify-center">
-          <v-col cols="7">
+          <v-col cols="12" sm="9" lg="6" xl="4">
             <Tracks v-if="selectedTab == 'Track'" />
             <Albums v-else-if="selectedTab == 'Album'" />
             <Artists v-else-if="selectedTab == 'Artist'" />

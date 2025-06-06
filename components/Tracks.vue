@@ -3,7 +3,7 @@ let tracks = ref([
   {
     title: "прикол1",
     year: "2021",
-    artist_id: "Название исполнителя",
+    artist_id: "Имя исполнителя",
     album_id: "Название альбома",
   },
   {
@@ -15,21 +15,9 @@ let tracks = ref([
 ]);
 </script>
 <template>
-  <v-card
-    v-for="track of tracks"
-    class="mx-auto my-8"
-    elevation="16"
-    max-width="300"
-    ><!--{{ track.title }}
-    {{ track.year }}
-    {{ track.artist_id }}
-    {{ track.album_id }}-->
-    <v-card-item>
-      <v-card-title> {{ track.title }} </v-card-title>
-
-      <v-card-subtitle> {{ track.artist_id }} </v-card-subtitle>
-    </v-card-item>
-
-    <v-card-text> {{ track.year }} {{ track.album_id }} </v-card-text>
-  </v-card>
+  <v-row>
+    <v-col cols="12" v-for="(item, index) of tracks" :key="index">
+      <TrackCard :track="item" />
+    </v-col>
+  </v-row>
 </template>
