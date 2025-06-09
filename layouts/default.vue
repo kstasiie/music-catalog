@@ -5,9 +5,8 @@
     </v-main>
   </v-app>
 </template>
-<style scoped lang="scss">
-.main-container {
+<style lang="scss">
+.v-application {
   background: linear-gradient(to bottom, #87ceeb, #1e90ff) !important;
-  min-height: 100vh;
 }
 </style>
