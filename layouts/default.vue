@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <v-fab></v-fab>
     <v-main class="main-container">
       <slot />
     </v-main>
