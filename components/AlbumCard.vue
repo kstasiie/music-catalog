@@ -13,11 +13,8 @@ defineProps<{
   <v-card :elevation="0">
     <v-card-item>
       <v-card-title
-        >{{ album.title
-        }}<v-btn icon="mdi-pencil-outline" size="x-small"></v-btn
-      ></v-card-title>
-      <!-- <v-btn icon="mdi-pencil-outline" size="x-small"></v-btn> -->
-
+        ><NuxtLink to="/album">{{ album.title }}</NuxtLink></v-card-title
+      >
       <v-card-subtitle>
         <NuxtLink to="/artist">{{ album.artist_id }}</NuxtLink>
       </v-card-subtitle>
@@ -28,8 +25,9 @@ defineProps<{
       {{ album.genre_id }}
     </v-card-text>
 
-    <template v-slot:actions>
+    <!-- <template class="d-flex justify-center" v-slot:actions>
       <v-btn prepend-icon="mdi-pencil">редактировать</v-btn>
-    </template>
+      <v-btn prepend-icon="mdi-delete">удалить</v-btn>
+    </template> -->
   </v-card>
 </template>

@@ -15,9 +15,16 @@ let tracks = ref([
 ]);
 </script>
 <template>
-  <v-row>
-    <v-col cols="12" v-for="(item, index) of tracks" :key="index">
-      <TrackCard :track="item" />
-    </v-col>
-  </v-row>
+  <v-card elevation="4" variant="elevated" color="blue-lighten-5">
+    <v-row>
+      <v-col
+        class="d-flex justify-center"
+        cols="12"
+        v-for="(item, index) of tracks"
+        :key="index"
+      >
+        <TrackCard :track="item" />
+      </v-col>
+    </v-row>
+  </v-card>
 </template>

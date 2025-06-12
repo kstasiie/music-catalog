@@ -9,7 +9,7 @@ defineProps<{
 }>();
 </script>
 <template>
-  <v-card :elevation="0">
+  <v-card :elevation="4">
     <v-card-item>
       <v-card-title> {{ track.title }} </v-card-title>
 
@@ -22,5 +22,9 @@ defineProps<{
       {{ track.year }}
       <NuxtLink to="/album">{{ track.album_id }}</NuxtLink>
     </v-card-text>
+    <template class="d-flex justify-center" v-slot:actions>
+      <v-btn prepend-icon="mdi-pencil">редактировать</v-btn>
+      <v-btn prepend-icon="mdi-delete">удалить</v-btn>
+    </template>
   </v-card>
 </template>
