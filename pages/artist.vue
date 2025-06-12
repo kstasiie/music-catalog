@@ -94,6 +94,7 @@ const artist = ref<any>({
 h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
+  color: white;
 }
 h2 {
   font-size: 1.8rem;
