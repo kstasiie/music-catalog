@@ -74,11 +74,7 @@ const artist = ref<any>({
                 <v-list dense>
                   <v-subheader>Tracks</v-subheader>
                   <v-list-item v-for="track in album.tracks" :key="track.title">
-                    <v-list-item-title>{{ track.title }}</v-list-item-title>
-                    <v-list-item-subtitle
-                      >{{ track.year }} |
-                      {{ track.genre_id }}</v-list-item-subtitle
-                    >
+                    <TrackCard :track="track"></TrackCard>
                   </v-list-item>
                 </v-list>
               </v-card-text>
