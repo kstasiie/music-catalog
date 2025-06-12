@@ -23,7 +23,9 @@ defineProps<{
       <NuxtLink to="/album">{{ track.album_id }}</NuxtLink>
     </v-card-text>
     <template class="d-flex justify-center" v-slot:actions>
-      <v-btn prepend-icon="mdi-pencil">редактировать</v-btn>
+      <NuxtLink to="/add-track"
+        ><v-btn prepend-icon="mdi-pencil">редактировать</v-btn></NuxtLink
+      >
       <v-btn prepend-icon="mdi-delete">удалить</v-btn>
     </template>
   </v-card>
