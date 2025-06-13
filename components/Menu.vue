@@ -15,31 +15,31 @@ function navigateTo(path) {
     :absolute="true"
     :color="open ? '' : 'primary'"
     :location="fabLocation"
-    size="large"
+    size="x-large"
     icon
     class="ma-3"
   >
-    <v-icon>{{ open ? "mdi-close" : "mdi-crown" }}</v-icon>
+    <v-icon>{{ open ? "mdi-close" : "mdi-menu" }}</v-icon>
     <v-speed-dial
       v-model="open"
       :location="menuLocation"
       :transition="transition"
       activator="parent"
     >
-      <v-btn key="1" color="success" icon @click="navigateTo('/adsfndf')">
-        <v-icon size="24">mdi-check</v-icon>
+      <v-btn key="1" color="info" icon @click="navigateTo('/')">
+        <v-icon size="30">mdi-magnify</v-icon>
       </v-btn>
 
-      <v-btn key="2" color="info" icon @click="navigateTo('/adsfndf')">
-        <v-icon size="24">mdi-information</v-icon>
+      <v-btn key="2" color="info" icon @click="navigateTo('/add-track')">
+        <v-icon size="24">mdi-plus</v-icon>
       </v-btn>
 
-      <v-btn key="3" color="warning" icon @click="navigateTo('/adsfndf')">
-        <v-icon size="24">mdi-alert</v-icon>
+      <v-btn key="3" color="info" icon @click="navigateTo('/adsfndf')">
+        <v-icon size="24">mdi-music-box</v-icon>
       </v-btn>
       <!-- кнопка, которая закрывает speed dial -->
-      <v-btn key="4" color="error" icon @click="open = false">
-        <v-icon size="24">mdi-close-circle</v-icon>
+      <v-btn key="4" color="info" icon @click="navigateTo('/adsfndf')">
+        <v-icon size="24">mdi-information</v-icon>
       </v-btn>
     </v-speed-dial>
   </v-fab>
