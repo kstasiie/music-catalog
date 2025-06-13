@@ -1,10 +1,10 @@
 <script setup lang="ts">
 defineProps<{
   album: {
-    title: string;
+    album_name: string;
     year: string;
-    artist_id: string;
-    genre_id: string;
+    artist_name: string;
+    genre_name: string;
   };
 }>();
 </script>
@@ -13,16 +13,16 @@ defineProps<{
   <v-card :elevation="0">
     <v-card-item>
       <v-card-title
-        ><NuxtLink to="/album">{{ album.title }}</NuxtLink></v-card-title
+        ><NuxtLink to="/album">{{ album.album_name }}</NuxtLink></v-card-title
       >
       <v-card-subtitle>
-        <NuxtLink to="/artist">{{ album.artist_id }}</NuxtLink>
+        <NuxtLink to="/artist">{{ album.artist_name }}</NuxtLink>
       </v-card-subtitle>
     </v-card-item>
 
     <v-card-text>
       {{ album.year }}
-      {{ album.genre_id }}
+      {{ album.genre_name }}
     </v-card-text>
 
     <!-- <template class="d-flex justify-center" v-slot:actions>
