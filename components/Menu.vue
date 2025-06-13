@@ -1,5 +1,5 @@
 <template>
-  <v-card :class="fabPosition === 'demo-panel-static'" border flat>
+  <v-card :class="fabPosition === 'absolute'" border flat>
     <v-fab
       :key="fabPosition"
       :absolute="fabPosition === 'absolute'"
