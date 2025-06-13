@@ -19,7 +19,7 @@ let query = ref('')
 async function fetchTracks() {
 
   try {
-    let response = await fetch(`http://localhost:8000/search?query=${query.value}`, {
+    let response = await fetch(`http://127.0.0.1:8000/search?query=${query.value}`, {
       method: "GET",
       mode: "no-cors",
       headers: {
