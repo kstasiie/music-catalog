@@ -21,7 +21,7 @@ async function fetchTracks() {
   try {
     let response = await fetch(`http://localhost:8000/search?query=${query.value}`, {
       method: "GET",
-      mode: "cors",
+      mode: "no-cors",
       headers: {
         "Content-Type": "application/json"
       },
