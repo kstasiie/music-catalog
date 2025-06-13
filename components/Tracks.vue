@@ -24,7 +24,7 @@ async function fetchTracks() {
     // result.alternatives[0].message.text -- text of model response
     console.log(data);
     if (data.results != null) {
-      tracks.value = data.results
+      tracks.value = data.results;
     }
   } catch (error) {
     console.log(error);
@@ -37,18 +37,30 @@ function submit() {
 fetchTracks();
 </script>
 <template>
-
   <v-row class="d-flex justify-center">
-    <v-col cols="12" sm="9" lg="6" xl="4">
-      <v-text-field placeholder="Введите" rounded variant="solo" class="search-input" append-inner-icon="mdi-magnify"
-        v-model="query"></v-text-field>
-      <v-btn @click="submit">отправить</v-btn>
+    <v-col>
+      <v-text-field
+        placeholder="Введите название песни"
+        rounded
+        variant="solo"
+        class="search-input"
+        append-inner-icon="mdi-magnify"
+        v-model="query"
+        @click:append-inner="submit"
+      ></v-text-field>
     </v-col>
   </v-row>
 
   <v-card elevation="4" variant="elevated" color="blue-lighten-5">
-    <v-row>
-      <v-col class="d-flex justify-center" cols="12" v-for="(item, index) of tracks" :key="index">
+    <v-row class="d-flex justify-center">
+      <v-col
+        cols="12"
+        sm="11"
+        lg="11"
+        xl="11"
+        v-for="(item, index) of tracks"
+        :key="index"
+      >
         <TrackCard :track="item" />
       </v-col>
     </v-row>

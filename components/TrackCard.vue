@@ -22,11 +22,15 @@ defineProps<{
       {{ track.year }}
       <NuxtLink to="/album">{{ track.album_name }}</NuxtLink>
     </v-card-text>
-    <template class="d-flex justify-center" v-slot:actions>
-      <NuxtLink to="/add-track"
-        ><v-btn prepend-icon="mdi-pencil">редактировать</v-btn></NuxtLink
-      >
-      <v-btn prepend-icon="mdi-delete">удалить</v-btn>
+    <template v-slot:actions>
+      <v-row class="d-flex justify-center">
+        <v-col>
+          <NuxtLink to="/add-track"
+            ><v-btn prepend-icon="mdi-pencil">редактировать</v-btn></NuxtLink
+          >
+          <v-btn prepend-icon="mdi-delete">удалить</v-btn>
+        </v-col>
+      </v-row>
     </template>
   </v-card>
 </template>
