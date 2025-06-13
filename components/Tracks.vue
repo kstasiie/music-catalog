@@ -40,7 +40,6 @@ async function fetchTracks() {
     console.log(error);
   }
 }
-
 fetchTracks();
 </script>
 <template>
