@@ -1,18 +1,5 @@
 <script setup lang="ts">
-let tracks = ref([
-  {
-    title: "прикол1",
-    year: "2021",
-    artist_id: "Имя исполнителя",
-    album_id: "Название альбома",
-  },
-  {
-    title: "прикол2",
-    year: "2021",
-    artist_id: "Название исполнителя",
-    album_id: "Название альбома",
-  },
-]);
+let tracks = ref([]);
 
 let query = ref("");
 async function fetchTracks() {
@@ -36,21 +23,32 @@ async function fetchTracks() {
     const data = await response.json();
     // result.alternatives[0].message.text -- text of model response
     console.log(data);
+    if (data.results != null) {
+      tracks.value = data.results
+    }
   } catch (error) {
     console.log(error);
   }
 }
+
+function submit() {
+  fetchTracks();
+}
 fetchTracks();
 </script>
 <template>
+
+  <v-row class="d-flex justify-center">
+    <v-col cols="12" sm="9" lg="6" xl="4">
+      <v-text-field placeholder="Введите" rounded variant="solo" class="search-input" append-inner-icon="mdi-magnify"
+        v-model="query"></v-text-field>
+      <v-btn @click="submit">отправить</v-btn>
+    </v-col>
+  </v-row>
+
   <v-card elevation="4" variant="elevated" color="blue-lighten-5">
     <v-row>
-      <v-col
-        class="d-flex justify-center"
-        cols="12"
-        v-for="(item, index) of tracks"
-        :key="index"
-      >
+      <v-col class="d-flex justify-center" cols="12" v-for="(item, index) of tracks" :key="index">
         <TrackCard :track="item" />
       </v-col>
     </v-row>
