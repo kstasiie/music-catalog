@@ -18,7 +18,7 @@ defineProps<{
 
       <v-card-subtitle class="text-h6 font-weight-black">
         <NuxtLink
-          class="font-weight-medium"
+          class="font-weight-black"
           :to="{
             name: 'artist-artist_name',
             params: { artist_name: track.artist_name },
@@ -28,7 +28,7 @@ defineProps<{
         </NuxtLink>
       </v-card-subtitle>
       <NuxtLink
-        class="font-weight-medium"
+        class="text-h7 font-weight-black"
         :to="{
           name: 'album-album_name',
           params: { album_name: track.album_name },
