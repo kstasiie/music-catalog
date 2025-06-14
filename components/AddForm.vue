@@ -52,13 +52,15 @@ async function submit() {
 <template>
   <v-sheet
     rounded
-    class="mx-auto"
+    class="mx-auto pa-4"
     width="500"
     elevation="4"
     variant="elevated"
     color="blue-lighten-5"
   >
     <v-form @submit.prevent="submit">
+      <h2 class="text-h4 font-weight-black">Добавить трек</h2>
+      <br />
       <v-text-field
         rounded
         variant="solo-filled"
@@ -96,7 +98,9 @@ async function submit() {
         v-model="form.year"
       ></v-text-field>
 
-      <v-btn rounded class="mt-2" type="submit" block>Добавить</v-btn>
+      <v-btn rounded class="mt-4" type="submit" block color="primary"
+        >Добавить</v-btn
+      >
     </v-form>
   </v-sheet>
 </template>

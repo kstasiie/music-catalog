@@ -4,8 +4,6 @@ import { ref } from "vue";
 // Define the props that this component expects
 const props = defineProps<{
   track: {
-    // Ideally, track should also have an 'id' for more reliable deletion
-    // id: string; // If you add an ID to your track objects from the backend
     name: string;
     year: string;
     artist_name: string;
@@ -17,7 +15,7 @@ const props = defineProps<{
 // Define custom events that this component can emit to its parent
 const emit = defineEmits(["track-deleted", "delete-error"]);
 
-// State for basic user feedback
+// State for basic user feedback (for delete button)
 const isDeleting = ref(false);
 
 /**
@@ -115,11 +113,25 @@ async function handleDeleteTrack() {
     <template v-slot:actions>
       <v-row class="d-flex justify-center">
         <v-col>
-          <NuxtLink to="/add-track"
-            ><v-btn class="font-weight-medium" prepend-icon="mdi-pencil"
-              >редактировать</v-btn
-            ></NuxtLink
+          <!-- Кнопка "редактировать" использует проп 'to' напрямую -->
+          <v-btn
+            class="font-weight-medium"
+            prepend-icon="mdi-pencil"
+            :to="{
+              path: '/edit-track',
+              query: {
+                edit: 'true',
+                originalTitle: track.name,
+                name: track.name,
+                artist: track.artist_name,
+                album: track.album_name,
+                genre: track.genre_name,
+                year: track.year,
+              },
+            }"
           >
+            редактировать
+          </v-btn>
           <v-btn
             class="font-weight-medium"
             prepend-icon="mdi-delete"
