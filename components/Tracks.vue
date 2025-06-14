@@ -51,7 +51,13 @@ fetchTracks();
     </v-col>
   </v-row>
 
-  <v-card elevation="4" variant="elevated" color="blue-lighten-5">
+  <v-sheet
+    rounded
+    class="mx-auto pa-4"
+    elevation="4"
+    variant="elevated"
+    color="blue-lighten-5"
+  >
     <v-row class="d-flex justify-center">
       <v-col
         cols="12"
@@ -64,5 +70,5 @@ fetchTracks();
         <TrackCard :track="item" />
       </v-col>
     </v-row>
-  </v-card>
+  </v-sheet>
 </template>

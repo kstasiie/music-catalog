@@ -32,10 +32,38 @@ async function fetchTracks() {
 }
 
 fetchTracks();
+async function exportSongs() {
+  try {
+    // Просто перейдите по URL, чтобы инициировать скачивание.
+    // Браузер сам обработает скачивание файла.
+    window.open("http://127.0.0.1:8000/export/songs/docx", "_blank");
+    // "_blank" откроет новую вкладку, чтобы не прерывать текущую страницу
+  } catch (error) {
+    console.error("Ошибка при экспорте DOCX:", error);
+    alert("Произошла ошибка при экспорте песен.");
+  }
+}
 </script>
 <template>
-  <h1>Скачать каталог</h1>
-  <v-card elevation="4" variant="elevated" color="blue-lighten-5">
+  <v-btn
+    rounded
+    class="mt-4"
+    type="submit"
+    block
+    color="primary"
+    @click="exportSongs"
+  >
+    Экспортировать в DOCX
+    <v-icon right>mdi-file-word</v-icon>
+  </v-btn>
+  <br />
+  <v-sheet
+    rounded
+    class="mx-auto pa-4"
+    elevation="4"
+    variant="elevated"
+    color="blue-lighten-5"
+  >
     <v-row class="d-flex justify-center">
       <v-col
         cols="12"
@@ -48,5 +76,5 @@ fetchTracks();
         <TrackCard :track="item" />
       </v-col>
     </v-row>
-  </v-card>
+  </v-sheet>
 </template>
