@@ -90,6 +90,12 @@ watch(
   },
   { immediate: true } // immediate: true гарантирует, что fetchAlbumDetails будет вызван сразу после инициализации
 );
+function handleTrackDeleted(deletedTrackName: string) {
+  // Обновляем массив треков, удаляя удаленный трек
+  album.value.tracks = album.value.tracks.filter(
+    (track) => track.title !== deletedTrackName
+  );
+}
 </script>
 
 <template>
@@ -123,6 +129,7 @@ watch(
                     album_name: album.title, // или album.name, если нужно
                     genre_name: track.genre_id, // или album.genre_name, если есть
                   }"
+                  @track-deleted="handleTrackDeleted"
                 />
               </v-col>
             </v-row>

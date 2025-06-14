@@ -1,6 +1,11 @@
 <script setup lang="ts">
-defineProps<{
+import { ref } from "vue";
+
+// Define the props that this component expects
+const props = defineProps<{
   track: {
+    // Ideally, track should also have an 'id' for more reliable deletion
+    // id: string; // If you add an ID to your track objects from the backend
     name: string;
     year: string;
     artist_name: string;
@@ -8,7 +13,78 @@ defineProps<{
     genre_name: string;
   };
 }>();
+
+// Define custom events that this component can emit to its parent
+const emit = defineEmits(["track-deleted", "delete-error"]);
+
+// State for basic user feedback
+const isDeleting = ref(false);
+
+/**
+ * Handles the deletion of a track.
+ * Sends a DELETE request to the backend and emits an event to the parent.
+ */
+async function handleDeleteTrack() {
+  if (!props.track.name) {
+    console.error("Название трека отсутствует. Невозможно удалить.");
+    alert("Ошибка: Невозможно удалить трек без названия.");
+    return;
+  }
+
+  // Confirm with the user before deleting
+  if (!confirm(`Вы уверены, что хотите удалить трек "${props.track.name}"?`)) {
+    return; // User cancelled
+  }
+
+  isDeleting.value = true; // Set loading state for the button
+
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:8000/songs/${encodeURIComponent(props.track.name)}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      alert(`Трек "${props.track.name}" успешно удален: ${data.message}`);
+      // Emit an event to the parent component, so it can update its list of tracks
+      emit("track-deleted", props.track.name);
+    } else {
+      const errorData = await response.json();
+      console.error(
+        `Ошибка при удалении трека "${props.track.name}":`,
+        errorData
+      );
+      alert(
+        `Ошибка при удалении трека "${props.track.name}": ${
+          errorData.detail || "Неизвестная ошибка"
+        }`
+      );
+      emit("delete-error", {
+        trackName: props.track.name,
+        error: errorData.detail || "Неизвестная ошибка",
+      });
+    }
+  } catch (error) {
+    console.error(
+      `Ошибка сети или сервера при удалении трека "${props.track.name}":`,
+      error
+    );
+    alert(
+      `Ошибка сети/сервера при удалении трека "${props.track.name}". Попробуйте еще раз.`
+    );
+    emit("delete-error", { trackName: props.track.name, error: error });
+  } finally {
+    isDeleting.value = false; // Reset loading state
+  }
+}
 </script>
+
 <template>
   <v-card :elevation="4">
     <v-card-item>
@@ -44,9 +120,16 @@ defineProps<{
               >редактировать</v-btn
             ></NuxtLink
           >
-          <v-btn class="font-weight-medium" prepend-icon="mdi-delete"
-            >удалить</v-btn
+          <v-btn
+            class="font-weight-medium"
+            prepend-icon="mdi-delete"
+            color="error"
+            @click="handleDeleteTrack"
+            :loading="isDeleting"
+            :disabled="isDeleting"
           >
+            удалить
+          </v-btn>
         </v-col>
       </v-row>
     </template>
