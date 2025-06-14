@@ -21,7 +21,10 @@ defineProps<{
       </v-card-subtitle>
       <NuxtLink
         class="font-weight-medium"
-        :to="`/album/${encodeURIComponent(track.album_name)}`"
+        :to="{
+          name: 'album-album_name',
+          params: { album_name: track.album_name },
+        }"
         >{{ track.album_name }}</NuxtLink
       >
     </v-card-item>
