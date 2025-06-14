@@ -32,6 +32,7 @@ async function fetchAlbums() {
 function submit() {
   fetchAlbums();
 }
+fetchAlbums();
 </script>
 <template>
   <v-row class="d-flex justify-center">

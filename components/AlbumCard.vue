@@ -10,24 +10,14 @@ defineProps<{
 </script>
 
 <template>
-  <v-card :elevation="0">
+  <v-card :elevation="4">
     <v-card-item>
-      <v-card-title
+      <v-card-title class="text-h5 font-weight-black"
         ><NuxtLink to="/album">{{ album.album_name }}</NuxtLink></v-card-title
       >
-      <v-card-subtitle>
+      <v-card-subtitle class="text-h6 font-weight-black">
         <NuxtLink to="/artist">{{ album.artist_name }}</NuxtLink>
       </v-card-subtitle>
     </v-card-item>
-
-    <v-card-text>
-      {{ album.year }}
-      {{ album.genre_name }}
-    </v-card-text>
-
-    <!-- <template class="d-flex justify-center" v-slot:actions>
-      <v-btn prepend-icon="mdi-pencil">редактировать</v-btn>
-      <v-btn prepend-icon="mdi-delete">удалить</v-btn>
-    </template> -->
   </v-card>
 </template>
