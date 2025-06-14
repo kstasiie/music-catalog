@@ -40,7 +40,7 @@ fetchTracks();
   <v-row class="d-flex justify-center">
     <v-col>
       <v-text-field
-        placeholder="Введите название песни"
+        placeholder="Введите трек, альбом или исполнителя"
         rounded
         variant="solo"
         class="search-input"

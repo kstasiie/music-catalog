@@ -9,7 +9,7 @@ function setTab(tab) {
 <template>
   <v-container class="text-center">
     <img src="~/assets/images/main-logo.svg" alt="" />
-    <v-row justify="center" class="controls">
+    <!-- <v-row justify="center" class="controls">
       <v-col cols="12" sm="9" lg="6" xl="4" class="d-flex">
         <v-btn
           :color="selectedTab === 'Track' ? 'blue lighten-2' : 'white'"
@@ -39,13 +39,11 @@ function setTab(tab) {
           Исполнитель
         </v-btn>
       </v-col>
-    </v-row>
+    </v-row> -->
 
     <v-row class="d-flex justify-center">
       <v-col cols="12" sm="9" lg="6" xl="4">
-        <Tracks v-if="selectedTab == 'Track'" />
-        <Albums v-else-if="selectedTab == 'Album'" />
-        <Artists v-else-if="selectedTab == 'Artist'" />
+        <Tracks />
       </v-col>
     </v-row>
   </v-container>
