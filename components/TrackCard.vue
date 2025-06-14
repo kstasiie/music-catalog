@@ -19,9 +19,11 @@ defineProps<{
       <v-card-subtitle class="text-h6 font-weight-black">
         <NuxtLink to="/artist">{{ track.artist_name }}</NuxtLink>
       </v-card-subtitle>
-      <NuxtLink class="font-weight-medium" to="/album">{{
-        track.album_name
-      }}</NuxtLink>
+      <NuxtLink
+        class="font-weight-medium"
+        :to="`/album/${encodeURIComponent(track.album_name)}`"
+        >{{ track.album_name }}</NuxtLink
+      >
     </v-card-item>
     <template v-slot:actions>
       <v-row class="d-flex justify-center">

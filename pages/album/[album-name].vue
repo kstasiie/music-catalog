@@ -2,37 +2,31 @@
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
-interface Track {
-  title: string;
-  year: number;
-  artist_id: string;
-  genre_id: string;
-}
-
-interface Album {
-  title: string;
-  year: string;
-  artist_id: string;
-  tracks: Track[];
-}
-
-// берём имя альбома из URL
 const route = useRoute();
-const albumName = route.params.name as string;
 
-// реактивный объект альбома
-const album = ref<Album>({
+const albumName = ref((route.params.album_name as string) || "");
+
+const album = ref({
   title: "",
   year: "",
   artist_id: "",
-  tracks: [],
+  tracks: [] as Array<{
+    title: string;
+    year: number;
+    artist_id: string;
+    genre_id: string;
+  }>,
 });
 
-// функция загрузки
 async function fetchAlbumDetails() {
+  if (!albumName.value) {
+    console.error("Название альбома не задано в маршруте");
+    return;
+  }
+
   try {
     const response = await fetch(
-      `http://127.0.0.1:8000/albums/${encodeURIComponent(albumName)}`,
+      `http://127.0.0.1:8000/albums/${encodeURIComponent(albumName.value)}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -53,7 +47,7 @@ async function fetchAlbumDetails() {
       tracks: data.songs.map((song: any) => ({
         title: song.title,
         year: song.year,
-        artist_id: song.artist_id,
+        artist_id: data.album.artist_id,
         genre_id: "",
       })),
     };
@@ -67,31 +61,30 @@ onMounted(fetchAlbumDetails);
 
 <template>
   <v-container class="text-center">
-    <v-row justify="center">
+    <v-row justify="center" class="controls">
       <v-col cols="12" sm="9">
-        <v-card v-if="album.title" elevation="4" class="mb-4">
-          <v-card-title>{{ album.title }}</v-card-title>
-          <v-card-subtitle> </v-card-subtitle>
+        <v-card :elevation="0" class="mb-4">
+          <v-card-item>
+            <v-card-title>{{ album.title }}</v-card-title>
+            <v-card-subtitle>Artist ID: {{ album.artist_id }}</v-card-subtitle>
+          </v-card-item>
           <v-card-text>
-            <div>Описание: {{ album.year }}</div>
-            <v-divider class="my-4" />
-            <h3>Треки:</h3>
+            <div>Released: {{ album.year }}</div>
             <v-row>
-              <v-col cols="6" v-for="song in album.tracks" :key="song.title">
+              <v-col cols="6" v-for="track in album.tracks" :key="track.title">
                 <TrackCard
                   :track="{
-                    name: song.title,
-                    year: song.year.toString(),
+                    name: track.title,
+                    year: track.year.toString(),
                     artist_name: album.artist_id, // или правильное имя исполнителя
                     album_name: album.title, // или album.name, если нужно
-                    genre_name: song.genre_id,
+                    genre_name: track.genre_id, // или album.genre_name, если есть
                   }"
                 />
               </v-col>
             </v-row>
           </v-card-text>
         </v-card>
-        <div v-else>Загрузка...</div>
       </v-col>
     </v-row>
   </v-container>
