@@ -17,7 +17,15 @@ defineProps<{
       </v-card-title>
 
       <v-card-subtitle class="text-h6 font-weight-black">
-        <NuxtLink to="/artist">{{ track.artist_name }}</NuxtLink>
+        <NuxtLink
+          class="font-weight-medium"
+          :to="{
+            name: 'artist-artist_name',
+            params: { artist_name: track.artist_name },
+          }"
+        >
+          {{ track.artist_name }}
+        </NuxtLink>
       </v-card-subtitle>
       <NuxtLink
         class="font-weight-medium"
