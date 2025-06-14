@@ -34,7 +34,7 @@ function navigateTo(path) {
         <v-icon size="24">mdi-plus</v-icon>
       </v-btn>
 
-      <v-btn key="3" color="info" icon @click="navigateTo('/adsfndf')">
+      <v-btn key="3" color="info" icon @click="navigateTo('/print-tracks')">
         <v-icon size="24">mdi-music-box</v-icon>
       </v-btn>
       <!-- кнопка, которая закрывает speed dial -->
