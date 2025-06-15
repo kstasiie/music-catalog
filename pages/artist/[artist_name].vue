@@ -131,7 +131,7 @@ watch(
               </v-col>
             </v-row>
             <div v-else class="text-body-1 text-grey-darken-1">
-              Альбомы для этого артиста не найдены.
+              Альбомы этого артиста не найдены.
             </div>
           </v-card-text>
         </v-card>

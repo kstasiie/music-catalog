@@ -103,6 +103,7 @@ async function handleDeleteTrack() {
       </v-card-subtitle>
       <NuxtLink
         class="text-h7 font-weight-black"
+        v-if="track.album_name != null"
         :to="{
           name: 'album-album_name',
           params: { album_name: track.album_name },
