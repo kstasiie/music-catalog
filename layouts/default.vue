@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <!-- <v-fab prepend-icon="mdi-menu"></v-fab> -->
     <Menu />
     <v-main class="main-container">
       <slot />
