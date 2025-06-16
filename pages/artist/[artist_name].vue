@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
-// Если у вас есть компонент AlbumCard, который отображает информацию об альбоме,
-// вы можете использовать его здесь. Если нет, этот код просто отобразит название альбома.
-// import AlbumCard from "~/components/AlbumCard.vue";
 
 const route = useRoute();
 
@@ -16,7 +13,7 @@ const artistDetails = ref({
   albums: [] as Array<{
     id: string;
     name: string;
-    description: string; // В вашем бэкенде это description, используем его
+    description: string;
   }>,
 });
 
@@ -54,7 +51,6 @@ async function fetchArtistDetails() {
 
     const data = await response.json();
 
-    // Проверяем структуру данных: ожидаем { "albums": [...] }
     if (data && Array.isArray(data.albums)) {
       artistDetails.value.name = artistName.value; // Имя артиста получаем из маршрута
       artistDetails.value.albums = data.albums.map((album: any) => ({
@@ -73,11 +69,9 @@ async function fetchArtistDetails() {
   }
 }
 
-// Запускаем загрузку данных при монтировании компонента
 onMounted(fetchArtistDetails);
 
 // Добавляем вотчер для отслеживания изменений в параметрах маршрута.
-// Это важно, если пользователь переходит между страницами артистов без полной перезагрузки.
 watch(
   () => route.params.artist_name,
   (newArtistName) => {
@@ -93,7 +87,7 @@ watch(
       };
     }
   },
-  { immediate: true } // immediate: true гарантирует, что fetchArtistDetails будет вызван сразу после инициализации
+  { immediate: true }
 );
 </script>
 

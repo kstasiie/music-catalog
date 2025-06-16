@@ -1,24 +1,23 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
-// Убедитесь, что путь к компоненту TrackCard правильный для вашей структуры проекта
+
 import TrackCard from "~/components/TrackCard.vue";
 
 const route = useRoute();
 
-// Получаем параметр по имени 'album_name', как его ожидает бэкенд и новый маршрут Nuxt.js
 const albumName = ref((route.params.album_name as string) || "");
 
 const album = ref({
   title: "",
-  year: "", // В бэкенде это description, но используем 'year' для согласованности с фронтендом
+  year: "",
   artist_id: "",
-  artist_name: "", // Добавляем artist_name для отображения и передачи в TrackCard
+  artist_name: "",
   tracks: [] as Array<{
     title: string;
     year: number;
-    artist_id: string; // ID исполнителя, который может быть взят из альбома
-    genre_id: string; // Возможно, будет пустой строкой, если API не возвращает
+    artist_id: string;
+    genre_id: string;
   }>,
 });
 
@@ -43,7 +42,7 @@ async function fetchAlbumDetails() {
       console.error(
         `Ошибка загрузки альбома: ${response.status} - ${response.statusText}`
       );
-      // Если альбом не найден, можно показать сообщение или перенаправить
+
       if (response.status === 404) {
         console.warn(`Альбом "${albumName.value}" не найден.`);
       }
@@ -56,14 +55,14 @@ async function fetchAlbumDetails() {
     if (data && data.album && data.songs) {
       album.value = {
         title: data.album.name,
-        year: data.album.description || "", // Используем description как year
+        year: data.album.description || "",
         artist_id: data.album.artist_id,
-        artist_name: data.album.artist_name, // Получаем имя исполнителя
+        artist_name: data.album.artist_name,
         tracks: data.songs.map((song: any) => ({
           title: song.title,
           year: song.year,
-          artist_id: data.album.artist_id, // Берем artist_id из альбома, т.к. бэкенд не возвращает его для каждой песни
-          genre_id: "", // Бэкенд не возвращает genre_id для песен в этом запросе
+          artist_id: data.album.artist_id,
+          genre_id: "",
         })),
       };
     } else {
@@ -77,10 +76,7 @@ async function fetchAlbumDetails() {
 // Запускаем загрузку данных при монтировании компонента
 onMounted(fetchAlbumDetails);
 
-// Добавляем вотчер для отслеживания изменений в параметрах маршрута.
-// Это важно, если пользователь переходит между страницами альбомов без полной перезагрузки.
 watch(
-  // Отслеживаем изменение route.params.album_name
   () => route.params.album_name,
   (newAlbumName) => {
     if (newAlbumName) {
@@ -88,7 +84,7 @@ watch(
       fetchAlbumDetails();
     }
   },
-  { immediate: true } // immediate: true гарантирует, что fetchAlbumDetails будет вызван сразу после инициализации
+  { immediate: true }
 );
 function handleTrackDeleted(deletedTrackName: string) {
   // Обновляем массив треков, удаляя удаленный трек
@@ -125,9 +121,9 @@ function handleTrackDeleted(deletedTrackName: string) {
                   :track="{
                     name: track.title,
                     year: track.year.toString(),
-                    artist_name: album.artist_name, // или правильное имя исполнителя
-                    album_name: album.title, // или album.name, если нужно
-                    genre_name: track.genre_id, // или album.genre_name, если есть
+                    artist_name: album.artist_name,
+                    album_name: album.title,
+                    genre_name: track.genre_id,
                   }"
                   @track-deleted="handleTrackDeleted"
                 />
