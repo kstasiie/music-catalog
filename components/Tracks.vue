@@ -4,6 +4,7 @@ let tracks = ref([]);
 let query = ref("");
 async function fetchTracks() {
   try {
+    // запрос к серверу
     let response = await fetch(
       `http://127.0.0.1:8000/search?query=${query.value}`,
       {
@@ -16,12 +17,10 @@ async function fetchTracks() {
     );
 
     if (!response.ok) {
-      // the response isn't okay
       console.log("response status isn't 200");
       return;
     }
     const data = await response.json();
-    // result.alternatives[0].message.text -- text of model response
     console.log(data);
     if (data.results != null) {
       tracks.value = data.results;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { useRoute } from "vue-router"; // Импортируем useRoute
+import { useRoute } from "vue-router";
 
 // Инициализируем useRoute для доступа к параметрам маршрута
 const route = useRoute();
@@ -13,16 +13,12 @@ const form = ref({
   year: "",
 });
 
-// Храним оригинальное название трека для запросов PUT (редактирование)
 const originalTrackTitle = ref("");
 
 // На этой странице мы всегда в режиме редактирования
 const isEditMode = ref(true);
 
 onMounted(() => {
-  // Поскольку эта страница предназначена только для редактирования, мы всегда ожидаем параметры
-  // Проверяем наличие 'edit=true' и 'originalTitle' для надежности, хотя 'edit' можно было бы и не проверять,
-  // если маршрутизация гарантирует это.
   if (route.query.edit === "true" && route.query.originalTitle) {
     // Сохраняем оригинальное название трека, которое будет использоваться в URL для PUT-запроса
     originalTrackTitle.value = route.query.originalTitle as string;
@@ -30,20 +26,16 @@ onMounted(() => {
     // Предзаполняем форму данными из параметров запроса
     form.value.artist = (route.query.artist as string) || "";
     form.value.album = (route.query.album as string) || "";
-    form.value.title = (route.query.name as string) || ""; // 'name' из TrackCard — это 'title' здесь
+    form.value.title = (route.query.name as string) || "";
     form.value.genre = (route.query.genre as string) || "";
     form.value.year = (route.query.year as string) || "";
   } else {
-    // Если параметры для редактирования отсутствуют, выводим ошибку или перенаправляем
     console.error(
       "Ошибка: Страница редактирования открыта без необходимых параметров трека."
     );
     alert(
       "Ошибка: Не удалось загрузить данные для редактирования. Убедитесь, что вы перешли по ссылке редактирования трека."
     );
-    // В реальном приложении здесь можно было бы перенаправить на главную страницу или страницу со списком треков
-    // const router = useRouter();
-    // router.push('/');
   }
 });
 
@@ -55,9 +47,9 @@ async function submit() {
     const requestParams = new URLSearchParams();
 
     const fetchOptions: RequestInit = {
-      method: "PUT", // Метод всегда PUT для редактирования
-      mode: "cors", // Убедитесь, что CORS правильно настроен на вашем бэкенде
-      headers: {}, // Заголовки будут пустыми, так как параметры идут в URL
+      method: "PUT",
+      mode: "cors",
+      headers: {},
     };
 
     // Логика для режима редактирования (PUT-запрос)
@@ -73,17 +65,13 @@ async function submit() {
     successMessage = "Трек успешно обновлен!";
     errorMessagePrefix = "Ошибка обновления трека:";
 
-    // Добавляем параметры для PUT-запроса, используя префикс 'new_' как ожидается бэкендом
-    // Добавляем только те поля, которые имеют значение (или если они явно очищены)
     if (form.value.title) requestParams.append("new_title", form.value.title);
     if (form.value.artist)
       requestParams.append("new_artist", form.value.artist);
 
-    // Для жанра и альбома, если поле очищено (пустая строка), отправляем это явно
     requestParams.append("new_genre", form.value.genre);
     requestParams.append("new_album", form.value.album);
 
-    // Год для PUT запроса также передается как строка в параметрах
     if (form.value.year) requestParams.append("new_year", form.value.year);
 
     // Параметры для PUT-запроса добавляются к URL
@@ -173,7 +161,6 @@ async function submit() {
             ></v-text-field>
 
             <v-btn rounded class="mt-4" type="submit" block color="primary">
-              <!-- Текст кнопки всегда "Обновить" -->
               Обновить
             </v-btn>
           </v-form>
