@@ -1,11 +1,3 @@
-<script setup>
-let selectedTab = ref("Track");
-
-function setTab(tab) {
-  selectedTab.value = tab;
-}
-</script>
-
 <template>
   <v-container class="text-center">
     <img src="~/assets/images/main-logo.svg" alt="" />
