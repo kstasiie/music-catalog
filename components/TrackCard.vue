@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-// Define the props that this component expects
+// Пропсы ожидаемых значений
 const props = defineProps<{
   track: {
     name: string;
@@ -12,16 +12,11 @@ const props = defineProps<{
   };
 }>();
 
-// Define custom events that this component can emit to its parent
 const emit = defineEmits(["track-deleted", "delete-error"]);
 
-// State for basic user feedback (for delete button)
 const isDeleting = ref(false);
 
-/**
- * Handles the deletion of a track.
- * Sends a DELETE request to the backend and emits an event to the parent.
- */
+// удаление трека
 async function handleDeleteTrack() {
   if (!props.track.name) {
     console.error("Название трека отсутствует. Невозможно удалить.");
@@ -29,16 +24,16 @@ async function handleDeleteTrack() {
     return;
   }
 
-  // Confirm with the user before deleting
+  // подтверждение от пользователя
   if (!confirm(`Вы уверены, что хотите удалить трек "${props.track.name}"?`)) {
-    return; // User cancelled
+    return;
   }
 
-  isDeleting.value = true; // Set loading state for the button
+  isDeleting.value = true;
 
   try {
     const response = await fetch(
-      `http://127.0.0.1:8000/songs/${encodeURIComponent(props.track.name)}`,
+      `http://127.0.0.1:8000/songs/${encodeURIComponent(props.track.name)}`, // запрос на веб-сервер
       {
         method: "DELETE",
         headers: {
@@ -50,7 +45,6 @@ async function handleDeleteTrack() {
     if (response.ok) {
       const data = await response.json();
       alert(`Трек "${props.track.name}" успешно удален: ${data.message}`);
-      // Emit an event to the parent component, so it can update its list of tracks
       emit("track-deleted", props.track.name);
     } else {
       const errorData = await response.json();
@@ -78,7 +72,7 @@ async function handleDeleteTrack() {
     );
     emit("delete-error", { trackName: props.track.name, error: error });
   } finally {
-    isDeleting.value = false; // Reset loading state
+    isDeleting.value = false;
   }
 }
 </script>
